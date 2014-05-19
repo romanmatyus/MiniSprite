@@ -31,6 +31,23 @@ class ImageTest extends TestCase
 		$image->getCssBlock()->width = "100 px";
 		Assert::equal("100 px", $image->getCssBlock()->width);
 	}
+
+	public function testCloning() {
+		$cssDef = 'div#google {
+			background:url(../images/google.png) 0 0 no-repeat;
+		}';
+
+		$cssBlock = new CssBlock($cssDef);
+		$image = new Image("assets/google.png", $cssBlock);
+
+		$newImage = clone $image;
+
+		$image->getCssBlock()->width = "100 px";
+		$newImage->getCssBlock()->width = "200 px";
+		Assert::equal("100 px", $image->getCssBlock()->width);
+		Assert::equal("200 px", $newImage->getCssBlock()->width);
+
+	}
 }
 
 $testCase = new ImageTest;

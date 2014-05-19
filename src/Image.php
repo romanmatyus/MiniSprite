@@ -136,4 +136,9 @@ class Image
 			? $this->height
 			: imagesy($this->getContent());
 	}
+
+	public function __clone()
+	{
+		$this->cssBlock = clone $this->cssBlock;
+	}
 }

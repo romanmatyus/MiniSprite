@@ -25,7 +25,7 @@ class VerticalFolder implements IFolder
 				)
 					continue;
 			}
-			$_imagesList[$image->getRepeating()][] = $image;
+			$_imagesList[$image->getRepeating()][] = clone $image;
 		}
 
 		foreach ($_imagesList[Image::NORMAL] as $image) {
@@ -48,7 +48,7 @@ class VerticalFolder implements IFolder
 				$image->positionY = $sameImage->positionY;
 				$image->getCssBlock()->{"background-position"} = (-1*$sameImage->positionX+$position["horizontal"]) . "px ".(-1*$sameImage->positionY+$position["vertical"])."px";
 			}
-			$_imagesProcessed[$image->getRepeating()][] = clone $image;
+			$_imagesProcessed[$image->getRepeating()][] = $image;
 		}
 
 		return array(
