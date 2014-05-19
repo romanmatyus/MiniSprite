@@ -1,6 +1,7 @@
 # MiniSprite
 
 [![Build Status](https://travis-ci.org/romanmatyus/MiniSprite.svg)](https://travis-ci.org/romanmatyus/MiniSprite)
+[![Code Quality](https://scrutinizer-ci.com/g/romanmatyus/MiniSprite/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/romanmatyus/MiniSprite/)
 
 MiniSprite is library for automatized generating CSS Sprites from CSS definitions.
 
