@@ -11,12 +11,6 @@ namespace MiniSprite;
 */
 class Image
 {
-	const GIF = "gif";
-
-	const JPG = "jpg";
-
-	const PNG = "png";
-
 	const NORMAL = "normal";
 
 	const HORIZONTAL = "horizontal";
@@ -28,10 +22,7 @@ class Image
 	/** @var string */
 	protected $url;
 
-	/** @var string */
-	protected $type;
-
-	/** @var binary */
+	/** @var resource */
 	protected $content;
 
 	/** @var CssBlock */
@@ -59,7 +50,6 @@ class Image
 	{
 		$this->url = $url;
 		$this->cssBlock = $cssBlock;
-		$this->getImageInfo();
 	}
 
 	/**
@@ -71,30 +61,16 @@ class Image
 	}
 
 	/**
-	 * @return string
-	 */
-	public function getType()
-	{
-		return $this->type;
-	}
-
-	/**
-	 * @return binary
+	 * @return resource
 	 */
 	public function getContent()
 	{
-		if (is_null($this->content)) {
-			switch ($this->type) {
-				case self::GIF:
-					$this->content = imagecreatefromgif($this->url);
-					break;
-				case self::JPG:
-					$this->content = imagecreatefromjpeg($this->url);
-					break;
-				case self::PNG:
-					$this->content = imagecreatefrompng($this->url);
-					break;
-			}
+		if (!is_null($this->content)) {
+			$this->content;
+		} else {
+			$resource = file_get_contents($this->url);
+			$this->size = strlen($resource);
+			$this->content = imagecreatefromstring($resource);
 		}
 		return $this->content;
 	}
@@ -113,7 +89,7 @@ class Image
 	public function getSize()
 	{
 		if (is_null($this->size))
-			$this->size = filesize($this->url);
+			$this->getContent(); // Get size in one request
 		return $this->size;
 	}
 
@@ -146,7 +122,9 @@ class Image
 	 */
 	public function getWidth()
 	{
-		return $this->width;
+		return (!is_null($this->width))
+			? $this->width
+			: imagesx($this->getContent());
 	}
 
 	/**
@@ -154,46 +132,8 @@ class Image
 	 */
 	public function getHeight()
 	{
-		return $this->height;
-	}
-
-	protected function getImageInfo()
-	{
-		$info = getimagesize($this->url);
-		$this->width = $info[0];
-		$this->height = $info[1];
-
-		$codes2extension = array(
-			1 => "GIF",
-			2 => "JPG",
-			3 => "PNG",
-			4 => "SWF",
-			5 => "PSD",
-			6 => "BMP",
-			7 => "TIFF",
-			8 => "TIFF",
-			9 => "JPC",
-			10 => "JP2",
-			11 => "JPX",
-			12 => "JB2",
-			13 => "SWC",
-			14 => "IFF",
-			15 => "WBMP",
-			16 => "XBM",
-		);
-
-		switch ($info[2]) {
-			case 1:
-				$this->type = self::GIF;
-				break;
-			case 2:
-				$this->type = self::JPG;
-				break;
-			case 3:
-				$this->type = self::PNG;
-				break;
-			default:
-				throw new InvalidArgumentException("Image '" . $this->url . "' must be '" . self::JPG . "', '" . self::GIF . "' or '" . self::PNG . "', not '" . $codes2extension[$info[2]] . "'.");
-		};
+		return (!is_null($this->height))
+			? $this->height
+			: imagesy($this->getContent());
 	}
 }

@@ -24,7 +24,6 @@ class ImageTest extends TestCase
 		Assert::equal("assets/google.png", $image->getUrl());
 		Assert::equal(Image::NORMAL, $image->getRepeating());
 		Assert::equal(1987, $image->getSize());
-		Assert::equal(Image::PNG, $image->getType());
 		Assert::equal(32, $image->getWidth());
 		Assert::equal(32, $image->getHeight());
 		Assert::same($cssBlock, $image->getCssBlock());
