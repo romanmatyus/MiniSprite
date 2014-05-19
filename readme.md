@@ -8,6 +8,15 @@ MiniSprite is library for automatized generating CSS Sprites from CSS definition
 
 MiniSprite requires PHP 5.3.3 or later.
 
+## How does this work?
+
+- Configure.
+- Parse CSS input.
+- Create Sprite image folding proposals.
+- Select winner proposal.
+- Generate Sprite images.
+- Regenerate content of CSS input and return it.
+
 ## Installation
 
 The best way to install MiniSprite is use [Composer](http://doc.nette.org/composer) package [`rm/minisprite`](https://packagist.org/packages/rm/minisprite) or manual download the latest ZIP package from [GitHub](https://github.com/romanmatyus/MiniSprite/archive/master.zip).
