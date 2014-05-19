@@ -39,7 +39,6 @@ class MiniSpriteTest extends TestCase
 	 */
 	public function testComplete($input, $output) {
 		Assert::equal($output, $this->miniSprite->compile($input));
-		Assert::equal($output, $this->miniSprite->compile($input));
 	}
 
 	public function tearDown()
