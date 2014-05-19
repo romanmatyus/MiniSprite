@@ -163,7 +163,7 @@ class MiniSprite
 			preg_match_all('~\bbackground(-image)?\s*:(.*?)url\s*\(\s*(\'|")?(?<image>.*?)\3?\s*\)~i', $block, $matches);
 			foreach ($matches['image'] as $image)
 				if (!(substr($image,0,5)==="data:") && !(strpos($image,"base64"))) {
-					$this->images[] = new Image(realpath($this->imageDirSource.$image), new CssBlock($block));
+					$this->images[] = new Image($this->imageDirSource.$image, new CssBlock($block));
 				}
 		}
 		return $this->images;
