@@ -29,6 +29,8 @@ class CssBlock
 	{
 		$this->origin = $origin;
 
+		$origin =  preg_replace('/(?!<\")\/\*[^\*]+\*\/(?!\")/' , ' ', $origin); // Remove commnents
+
 		preg_match_all('/\s*(?<selector>[^\{]+)\{[^\}]+\}\s*/i', $origin, $selector);
 		$this->selector = trim($selector["selector"][0]);
 

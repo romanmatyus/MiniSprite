@@ -166,6 +166,43 @@ BODY td .div a[href^="ddd"] {
 		$cssBlock->{"background-position"} = "0px 0px";
 		Assert::equal("0 0", $cssBlock->{"background-position"});
 	}
+
+	public function testSingleLineComment() {
+		$source = '
+
+div#test {
+	/* background:url("../foo.png") repeat-x; */
+	width:100px;
+	height   	:   1 px
+}';
+
+		$cssBlock = new CssBlock($source);
+
+		Assert::equal('div#test {
+	width: 100px;
+	height: 1 px;
+}
+', (string)$cssBlock);
+	}
+
+	public function testMultiLineComment() {
+		$source = '
+
+div#test {
+	/*
+	background:url("../foo.png") repeat-x;
+	width:100px; */
+	height   	:   1 px
+}';
+
+		$cssBlock = new CssBlock($source);
+
+		Assert::equal('div#test {
+	height: 1 px;
+}
+', (string)$cssBlock);
+	}
+
 }
 
 $testCase = new CssBlockTest;
