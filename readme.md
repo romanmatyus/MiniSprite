@@ -10,7 +10,7 @@ MiniSprite requires PHP 5.3.3 or later.
 
 ## Installation
 
-The best way to install MiniSprite is use [Composer](http://doc.nette.org/composer) package `[rm/minisprite](https://packagist.org/packages/rm/minisprite)` or manual download the latest ZIP package from [GitHub](https://github.com/romanmatyus/MiniSprite/archive/master.zip).
+The best way to install MiniSprite is use [Composer](http://doc.nette.org/composer) package [`rm/minisprite`](https://packagist.org/packages/rm/minisprite) or manual download the latest ZIP package from [GitHub](https://github.com/romanmatyus/MiniSprite/archive/master.zip).
 
 The downloaded package includes the following directories:
 
