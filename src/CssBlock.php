@@ -37,9 +37,7 @@ class CssBlock
 		preg_match_all('/[a-zA-Z-]+\s*:\s*[^;]*/i', trim($origin), $pairs);
 		foreach ($pairs[0] as $pair) {
 			preg_match_all('/(?<parameter>[^:]*):(?<value>[^\}]*)/i', trim($pair), $def);
-			$this->parameters[trim($def["parameter"][0])] = trim($def["value"][0]);
-			if (trim($def["parameter"][0])==="background")
-				$this->updateBackgroundParams();
+			$this->{strtolower(trim($def["parameter"][0]))} = trim($def["value"][0]);
 		}
 	}
 
@@ -55,9 +53,12 @@ class CssBlock
 		
 		preg_match_all('/\s*'.$regularPositionHorizontal.'\s*'.$regularPositionVertical.'/i', $string, $position);
 
+		$horizontal = trim($position["horizontal"][0]);
+		$vertical = trim($position["vertical"][0]);
+
 		return array(
-			"horizontal" => trim($position["horizontal"][0]),
-			"vertical" => trim($position["vertical"][0]),
+			"horizontal" => (strlen($horizontal)>0) ? trim($position["horizontal"][0]) : NULL,
+			"vertical" => (strlen($vertical)) >0? trim($position["vertical"][0]) : NULL,
 		);
 	}
 
@@ -68,7 +69,7 @@ class CssBlock
 			if (preg_match("/background\-position/i",$name)) {
 				$p = array();
 				foreach (self::parseBackgroundPosition($value) as $type => $val) {
-					if ($val!="") {
+					if ($val!==""&&$val!==NULL) {
 						if (in_array(trim($val),array("top", "left", "0px")))
 							$val = "0";
 						$p[$type] = trim($val);

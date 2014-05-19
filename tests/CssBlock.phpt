@@ -203,6 +203,33 @@ div#test {
 ', (string)$cssBlock);
 	}
 
+	public function testTransparentBackground() {
+		$source = '
+
+#menu1 {
+	width:970px;
+	HEIGHT: 47px;
+	BACKGROUND-COLOR: transparent;
+	font: 9pt arial;
+	padding: 0px 0px 0px 0px;
+	margin:0px 0px 0px 0px;
+	background-image:url("bg_mnu1.jpg");
+	background-repeat:no-repeat;
+}';
+
+		$cssBlock = new CssBlock($source);
+
+		Assert::equal('#menu1 {
+	width: 970px;
+	height: 47px;
+	background: transparent url("bg_mnu1.jpg") no-repeat;
+	font: 9pt arial;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+}
+', (string)$cssBlock);
+	}
+
 }
 
 $testCase = new CssBlockTest;
