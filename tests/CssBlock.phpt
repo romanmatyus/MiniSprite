@@ -230,6 +230,36 @@ div#test {
 ', (string)$cssBlock);
 	}
 
+	public function testMultipleSelector() {
+		$source = '
+
+#left  .linka2 a:link, #left  .linka2 a:visited {
+	background-image:url("/umb/umbbb.nsf/menu2a.gif");
+	background-repeat:no-repeat;
+	display:block;
+	background-position:top left;
+	padding: 2px 5px 1px 20px;
+	margin:0px 0px 0px 0px;
+	text-decoration:none;
+	color:#fff;
+	font: 9pt Arial;
+	font-style:italic;
+}';
+
+		$cssBlock = new CssBlock($source);
+var_dump($cssBlock);
+		Assert::equal('#left  .linka2 a:link, #left  .linka2 a:visited {
+	background: url("/umb/umbbb.nsf/menu2a.gif") no-repeat;
+	display: block;
+	padding: 2px 5px 1px 20px;
+	margin: 0px 0px 0px 0px;
+	text-decoration: none;
+	color: #fff;
+	font: 9pt Arial;
+	font-style: italic;
+}
+', (string)$cssBlock);
+	}
 }
 
 $testCase = new CssBlockTest;

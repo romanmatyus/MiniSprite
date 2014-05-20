@@ -34,7 +34,7 @@ class CssBlock
 		preg_match_all('/\s*(?<selector>[^\{]+)\{[^\}]+\}\s*/i', $origin, $selector);
 		$this->selector = trim($selector["selector"][0]);
 
-		preg_match_all('/[a-zA-Z-]+\s*:\s*[^;]*/i', trim($origin), $pairs);
+		preg_match_all('/[a-zA-Z-]+\s*:\s*[^;]*/i', str_replace($this->selector, NULL, trim($origin)), $pairs);
 		foreach ($pairs[0] as $pair) {
 			preg_match_all('/(?<parameter>[^:]*):(?<value>[^\}]*)/i', trim($pair), $def);
 			$this->{strtolower(trim($def["parameter"][0]))} = trim($def["value"][0]);
@@ -145,9 +145,8 @@ class CssBlock
 
 		$regularImage = '(?<image>((url\([^\)]*\))|none)?)';
 		
-		$regularPositionHorizontal = '(left|center|right|\-?\d{1,}\s*(%|px)?)?';
-		$regularPositionVertical = '(top|center|bottom|\-?\d{1,}\s*(%|px)?)?';
-		$regularPosition = '(?<position>'.$regularPositionHorizontal.'\s*'.$regularPositionVertical.')';
+		$regularPositionOne = '(top|left|center|right|bottom|\-?\d{1,}\s*(%|px)?)?';
+		$regularPosition = '(?<position>'.$regularPositionOne.'\s*'.$regularPositionOne.')';
 		
 		$regularRepeat = '(?<repeat>(no\-repeat|repeat\-x|repeat\-y|repeat)?)';
 
